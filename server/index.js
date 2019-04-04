@@ -147,11 +147,6 @@ const setHeadearListOnPage = {
 	'Access-Control-Allow-Credentials': 'true',
 	'Access-Control-Allow-Headers': 'Content-Type,Origin',
 	'Content-Security-Policy': "default-src 'self'",
-};
-
-const setHraderListAdditionInAppUse = {
-	'Access-Control-Allow-Origin': 'https://waogame.herokuapp.com',
-	'Access-Control-Allow-Origin': 'https://127.0.0.1:3000',
 	'Access-Control-Allow-Methods': 'GET,PUT,POST,OPTIONS',
 };
 
@@ -159,7 +154,6 @@ app.use((req, res, next) => {
 	if (req.method === 'OPTIONS') {
 		console.log("OPTIONS");
 		setHeaders(res, setHeadearListOnPage);
-		setHeaders(res, setHraderListAdditionInAppUse);
 		res.end();
 		return;
 	}
