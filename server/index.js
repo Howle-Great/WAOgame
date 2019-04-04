@@ -147,7 +147,7 @@ const setHeadearListOnPage = {
 	'Access-Control-Allow-Credentials': 'true',
 	'Access-Control-Allow-Headers': 'Content-Type,Origin',
 	'Content-Security-Policy': "default-src 'self'",
-	'Access-Control-Allow-Methods': 'GET,PUT,POST,OPTIONS',
+	'Access-Control-Allow-Methods': 'GET,PUT,POST,OPTIONS,DELETE',
 };
 
 app.use((req, res, next) => {
