@@ -22,7 +22,7 @@ import './components/scoreboard/ScoreBoard.css';
  * Регистрация Service Worker
  */
 function registerSW() {
-  if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === '127.0.0.1')) {
+  if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === '34.241.110.224')) {
     navigator.serviceWorker.register('/sw.js')
       .then(reg => console.log('SW success: ', reg))
       .catch(err => console.error('SW fail: ', err));

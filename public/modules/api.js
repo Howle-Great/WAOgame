@@ -1,4 +1,4 @@
-const baseUrl = 'http://127.0.0.1:3000';
+const baseUrl = 'https://34.241.110.224:3000';
 const apiUrl = '/api/v1';
 const reqUrl = baseUrl + apiUrl;
 
