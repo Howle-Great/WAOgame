@@ -1,4 +1,4 @@
-const baseUrl = 'https://34.241.110.224:3000';
+const baseUrl = 'https://wao2019.herokuapp.com';
 const apiUrl = '/api/v1';
 const reqUrl = baseUrl + apiUrl;
 
