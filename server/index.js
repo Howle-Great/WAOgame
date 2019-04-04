@@ -1,5 +1,4 @@
 
-
 const fallback = require('express-history-api-fallback');
 const express = require('express');
 // const formData = require("express-form-data");
@@ -144,14 +143,14 @@ const users = {
 const ids = {};
 
 const setHeadearListOnPage = {
-	'Access-Control-Allow-Origin': 'https://front-wao.now.sh',
+	'Access-Control-Allow-Origin': 'https://waogame.herokuapp.com',
 	'Access-Control-Allow-Credentials': 'true',
 	'Access-Control-Allow-Headers': 'Content-Type,Origin',
 	'Content-Security-Policy': "default-src 'self'",
 };
 
 const setHraderListAdditionInAppUse = {
-	'Access-Control-Allow-Origin': 'https://waogame.herokuapp.com/',
+	'Access-Control-Allow-Origin': 'https://wao2019.herokuapp.com',
 	'Access-Control-Allow-Origin': 'https://127.0.0.1:3000',
 	'Access-Control-Allow-Methods': 'GET,PUT,POST,OPTIONS',
 };
@@ -167,7 +166,18 @@ app.use((req, res, next) => {
 	next();
 });
 
+function setHeaders(res, list) {
+	for (const key in list) {
+		if (list.hasOwnProperty(key)) {
+			const element = list[key];
+			res.header(key, element);
+		}
+	}
+	return res;
+}
+
 app.get('/api/v1/sessions', (req, res) => {
+	res = setHeaders(res, setHeadearListOnPage);
 	console.log("sessions");
 	const id = req.cookies.sessionid;
 	console.log(id);
@@ -194,6 +204,7 @@ app.get('/api/v1/sessions', (req, res) => {
 });
 
 app.delete('/api/v1/sessions', (req, res) => {  
+	res = setHeaders(res, setHeadearListOnPage);
 	console.log("sessions");
 	console.log(req.cookies.sessionid);
 	const id = req.cookies.sessionid;
@@ -205,15 +216,6 @@ app.delete('/api/v1/sessions', (req, res) => {
 	return res.status(401);
 });
 
-function setHeaders(res, list) {
-	for (const key in list) {
-		if (list.hasOwnProperty(key)) {
-			const element = list[key];
-			res.header(key, element);
-		}
-	}
-	return res;
-}
 
 app.post('/api/v1/signup', (req, res) => {
 	res = setHeaders(res, setHeadearListOnPage);
@@ -252,6 +254,7 @@ app.post('/api/v1/signup', (req, res) => {
 });
 
 app.post('/api/v1/signin', (req, res) => {
+	res = setHeaders(res, setHeadearListOnPage);
 	console.log(req.body);
 	const password = req.body.password;
 	const nickname = req.body.nickname;
@@ -270,6 +273,7 @@ app.post('/api/v1/signin', (req, res) => {
 });
 
 app.get('/api/v1/user/:nickname', (req, res) => {
+	res = setHeaders(res, setHeadearListOnPage);
 	const nickname = req.params.nickname;
 	console.log('connect: ' + nickname);
 
@@ -297,6 +301,7 @@ app.get('/api/v1/user/:nickname', (req, res) => {
 });
 
 app.put('/api/v1/user/:nickname', (req, res) => {
+	res = setHeaders(res, setHeadearListOnPage);
 	const nickname = req.params.nickname;
 	console.log('connect: ' + nickname);
 
@@ -317,7 +322,7 @@ app.put('/api/v1/user/:nickname', (req, res) => {
 
 	form.on('file', function (name, file) {
 		console.log('Uploaded ' + file.name);
-		user.image = 'http://127.0.0.1:3000/uploads/' + file.name;
+		user.image = 'https://wao2019.herokuapp.com/uploads/' + file.name;
 	});
 
 	form.on('end', function() {
