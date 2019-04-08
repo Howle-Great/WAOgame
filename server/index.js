@@ -1,4 +1,3 @@
-
 const fallback = require('express-history-api-fallback');
 const express = require('express');
 // const formData = require("express-form-data");
@@ -147,7 +146,7 @@ const setHeadearListOnPage = {
 	'Access-Control-Allow-Credentials': 'true',
 	'Access-Control-Allow-Headers': 'Content-Type,Origin',
 	'Content-Security-Policy': "default-src 'self'",
-	'Access-Control-Allow-Methods': 'GET,PUT,POST,OPTIONS,DELETE',
+	'Access-Control-Allow-Methods': 'GET,PUT,POST,OPTIONS',
 };
 
 app.use((req, res, next) => {
@@ -316,7 +315,7 @@ app.put('/api/v1/user/:nickname', (req, res) => {
 
 	form.on('file', function (name, file) {
 		console.log('Uploaded ' + file.name);
-		user.image = 'https://wao2019.herokuapp.com/uploads/' + file.name;
+		user.image = 'https://waogame.herokuapp.com/uploads/' + file.name;
 	});
 
 	form.on('end', function() {
