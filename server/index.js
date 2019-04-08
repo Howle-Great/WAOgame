@@ -142,7 +142,7 @@ const users = {
 const ids = {};
 
 const setHeadearListOnPage = {
-	'Access-Control-Allow-Origin': 'https://waogame.herokuapp.com',
+	'Access-Control-Allow-Origin': 'https://wao2019.herokuapp.com',
 	'Access-Control-Allow-Credentials': 'true',
 	'Access-Control-Allow-Headers': 'Content-Type,Origin',
 	'Content-Security-Policy': "default-src 'self'",
