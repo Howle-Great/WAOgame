@@ -15,7 +15,7 @@ app.use(body.json());
 app.use(cookie());
 
 // const address = "http://127.0.0.1:3000";
-const address = "https://wao2019.herokuapp.com";
+const address = "https://waogame.herokuapp.com";
 const default_image = `${address}/uploads/user.png`;
 
 const users = {
