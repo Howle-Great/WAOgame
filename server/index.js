@@ -15,7 +15,8 @@ app.use(body.json());
 app.use(cookie());
 
 // const address = "http://127.0.0.1:3000";
-const address = "https://waogame.herokuapp.com";
+const front_address = "https://wao2019.herokuapp.com";
+const back_address = "https://waogame.herokuapp.com";
 const default_image = `${address}/uploads/user.png`;
 
 const users = {
@@ -140,7 +141,7 @@ const users = {
 const ids = {};
 
 const setHeadearListOnPage = {
-  "Access-Control-Allow-Origin": address,
+  "Access-Control-Allow-Origin": front_address,
   "Access-Control-Allow-Credentials": "true",
   "Access-Control-Allow-Headers": "Content-Type,Origin",
   "Content-Security-Policy": "default-src 'self'",
@@ -323,7 +324,7 @@ app.put("/api/user/:nickname", (req, res) => {
 
   form.on("file", function(name, file) {
     console.log("Uploaded " + file.name);
-    user.image = "http://127.0.0.1:3000/uploads/" + file.name;
+    user.image = back_address + "/uploads/" + file.name;
   });
 
   form.on("end", function() {
