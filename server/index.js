@@ -170,6 +170,7 @@ app.use((req, res, next) => {
 });
 
 const isAuth = (req, res) => {
+  res = setHeaders(res, setHeadearListOnPage);
   console.log('session');
   const id = req.cookies.sessionid;
   console.log(id);
@@ -256,6 +257,7 @@ app.post('/api/signup', (req, res) => {
 });
 
 app.post('/api/signin', (req, res) => {
+  res = setHeaders(res, setHeadearListOnPage);
   console.log(req.body);
   const { password } = req.body;
   const { nickname } = req.body;
@@ -303,6 +305,7 @@ app.get('/api/user/:nickname', (req, res) => {
 });
 
 app.put('/api/user/:nickname', (req, res) => {
+  res = setHeaders(res, setHeadearListOnPage);
   const { nickname } = req.params;
   console.log(`connect: ${nickname}`);
 
