@@ -199,6 +199,7 @@ const isAuth = (req, res) => {
 app.get('/api/session', (req, res) => isAuth(req, res));
 
 app.delete('/api/session', (req, res) => {
+  res = setHeaders(res, setHeadearListOnPage);
   console.log('session');
   console.log(req.cookies.sessionid);
   const id = req.cookies.sessionid;
