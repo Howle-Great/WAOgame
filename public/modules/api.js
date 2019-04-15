@@ -1,5 +1,5 @@
-const baseUrl = 'https://wao2019.herokuapp.com';
-const apiUrl = '/api/v1';
+const baseUrl = 'https://waogame.herokuapp.com';
+const apiUrl = '/api';
 const reqUrl = baseUrl + apiUrl;
 
 /**
@@ -89,7 +89,7 @@ export function parseJSON(res) {
  * return {Promise<Responce>}
  */
 export function getAuth() {
-  return getFetch('/sessions');
+  return getFetch('/session');
 }
 
 /**
@@ -97,7 +97,7 @@ export function getAuth() {
  * return {Promise<Responce>}
  */
 export function delAuth() {
-  return delFetch('/sessions');
+  return delFetch('/session');
 }
 
 /**
