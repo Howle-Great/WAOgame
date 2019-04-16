@@ -334,7 +334,9 @@ app.put('/api/user/:nickname', (req, res) => {
     console.log(user);
     users[user.nickname].nickname = user.nickname;
     users[user.nickname].email = user.email;
-    users[user.nickname].password = user.password;
+    if (user.password) {
+      users[user.nickname].password = user.password;
+    }
     if (user.image) {
       users[user.nickname].image = user.image;
     }
