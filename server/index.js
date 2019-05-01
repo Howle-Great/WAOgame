@@ -1,4 +1,4 @@
-const fallback = require('express-history-api-fallback');
+﻿const fallback = require('express-history-api-fallback');
 const express = require('express');
 const body = require('body-parser');
 const formidable = require('formidable');
@@ -6,10 +6,20 @@ const cookie = require('cookie-parser');
 const fs = require('fs');
 const uuid = require('uuid/v4');
 const path = require('path');
+const ws = require('express-ws');
 
 const app = express();
 
+ws(app);
+app.ws('/socket', (ws) => {
+  setInterval(() => {
+    ws.send('Hello there');
+  }, 15000);
+});
+
+
 app.use(express.static(path.resolve(__dirname, '..', 'dist')));
+// app.use(express.static(path.resolve(__dirname, '..', 'dist', 'docs')));
 // app.use(fallback('index.html', { root: 'dist' }));
 app.use(body.json());
 app.use(cookie());
@@ -190,7 +200,7 @@ const isAuth = (req, res) => {
       image: users[nickname].image,
     };
     // res.cookie('sessionid', id, { expires: new Date(Date.now() + 1000 * 60 * 10) });
-    res.json(send);
+    res.json(nickname);
   } else {
     return res.status(401).json({ error: 'Не авторизован' });
   }
@@ -211,7 +221,7 @@ app.delete('/api/session', (req, res) => {
   return res.status(401);
 });
 
-app.post('/api/signup', (req, res) => {
+app.post('/api/users', (req, res) => {
   res = setHeaders(res, setHeadearListOnPage);
   const { nickname } = req.body;
   const { email } = req.body;
@@ -257,7 +267,7 @@ app.post('/api/signup', (req, res) => {
   res.status(201).json(users[nickname]);
 });
 
-app.post('/api/signin', (req, res) => {
+app.post('/signin', (req, res) => {
   res = setHeaders(res, setHeadearListOnPage);
   console.log(req.body);
   const { password } = req.body;
@@ -266,7 +276,7 @@ app.post('/api/signin', (req, res) => {
     return res.status(422).json({ error: 'Не указан E-Mail или пароль' });
   }
   if (!users[nickname] || users[nickname].password !== password) {
-    return res.status(422).json({ error: 'Не верный E-Mail и/или пароль' });
+    return res.status(422).json({ error: 'Не верный E-Mail и/или пароль или нет кук' });
   }
 
   const id = uuid();
@@ -278,7 +288,7 @@ app.post('/api/signin', (req, res) => {
   res.status(200).json(users[nickname]);
 });
 
-app.get('/api/user/:nickname', (req, res) => {
+app.get('/api/users/:nickname', (req, res) => {
   const { nickname } = req.params;
   console.log(`connect: ${nickname}`);
 
@@ -305,7 +315,7 @@ app.get('/api/user/:nickname', (req, res) => {
   res.status(200).json(send);
 });
 
-app.put('/api/user/:nickname', (req, res) => {
+app.put('/api/users/:nickname', (req, res) => {
   res = setHeaders(res, setHeadearListOnPage);
   const { nickname } = req.params;
   console.log(`connect: ${nickname}`);
@@ -363,23 +373,11 @@ app.get('/api/users', (req, res) => {
       games: user.games,
       wins: user.wins,
     }));
-  console.log(scorelist);
-  res.status(200).json(scorelist);
-});
-
-app.get('/api/users/:page', (req, res) => {
-  res = setHeaders(res, setHeadearListOnPage);
-  const scorelist = Object.values(users)
-    .sort((l, r) => r.score - l.score)
-    .map(user => ({
-      nickname: user.nickname,
-      score: user.score,
-      games: user.games,
-      wins: user.wins,
-    }));
   // console.log(scorelist);
-  const page = parseInt(req.params.page);
-  const limit = 10;
+  // const page = parseInt(req.params.page);
+  // const limit = 10;
+  const page = req.query.offset;
+  const limit = req.query.limit;
   const pages = Math.ceil(scorelist.length / limit);
   const offset = (page - 1) * limit;
   let end = scorelist.length;
@@ -389,7 +387,7 @@ app.get('/api/users/:page', (req, res) => {
 
   const result = scorelist.slice(offset, end);
 
-  res.status(200).json({ page, pages, users: result });
+  res.status(200).json({ pages, users: result });
 });
 
 const port = process.env.PORT || 3000;
