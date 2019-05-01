@@ -1,4 +1,4 @@
-import Router from './modules/router';
+﻿import Router from './modules/router';
 import { GlobalBus } from './modules/eventbus';
 import { delAuth, checkStatus } from './modules/api';
 
@@ -55,7 +55,7 @@ function subscribeGlobalBus() {
  * Точка входа
  */
 function start() {
-  registerSW();
+  // registerSW();
   console.log('Start');
 
   const application = document.getElementById('application');

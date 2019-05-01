@@ -6,16 +6,18 @@ const cookie = require('cookie-parser');
 const fs = require('fs');
 const uuid = require('uuid/v4');
 const path = require('path');
-const ws = require('express-ws');
+// const ws = require('express-ws');
 
 const app = express();
 
+/*
 ws(app);
 app.ws('/socket', (ws) => {
   setInterval(() => {
     ws.send('Hello there');
   }, 15000);
 });
+*/
 
 
 app.use(express.static(path.resolve(__dirname, '..', 'dist')));
@@ -289,6 +291,7 @@ app.post('/signin', (req, res) => {
 });
 
 app.get('/api/users/:nickname', (req, res) => {
+  res = setHeaders(res, setHeadearListOnPage);
   const { nickname } = req.params;
   console.log(`connect: ${nickname}`);
 
